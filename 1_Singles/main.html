@@ -10,17 +10,13 @@
    href = "layout.css" />
 
 	<div id="Meta_One">
-		<div id="Icon_Container_One" class="Icon_Container">
-			<span id="Country_One" class="Country"></span>
-		</div>
+		<span id="Country_One" class="Country"></span>
 		<div id="Player_One" class="resizable"></div>
 		<div id="Character_One" class="Character"></div>
 	</div>
 
 	<div id="Meta_Two">
-		<div id="Icon_Container_Two" class="Icon_Container">
-			<span id="Country_Two" class="Country"></span>
-		</div>
+		<span id="Country_Two" class="Country"></span>
 		<div id="Player_Two" class="resizable"></div>
 		<div id="Character_Two" class="Character"></div>
 	</div>
@@ -129,7 +125,7 @@
 			var Round1 = d.Round;
 			
 			updateContentFadeDelayed('#Score_One', Score_One, 0, 600);
-			updateContentFadeDelayed('#Score_Two', Score_One, 0, 600);
+			updateContentFadeDelayed('#Score_Two', Score_Two, 0, 600);
 			
 			updateContent('#STOne', Country_One);
 			updateContentFadeDelayed('#Country_One', '<img src="../z_Dependencies/Logos/'+ Country_One +'.png" width="128" onerror="this.style.display=\'none\'" />', 300, 600);
