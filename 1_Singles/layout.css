@@ -1,12 +1,11 @@
-@font-face { src:url("../z_Dependencies/Fonts/AGENCYB.TTF"); font-family: "Bold"; }
-@font-face { src:url("../z_Dependencies/Fonts/AGENCYR.TTF"); font-family: "Condensed"; }
+@font-face { src:url("../z_Dependencies/Fonts/BebasNeue.otf"); font-family: "Bold"; }
+@font-face { src:url("../z_Dependencies/Fonts/BebasNeue.otf"); font-family: "Condensed"; }
 
 body {
 	width: 1920px;
 	height: 1080px;
 	margin: 0px;
 	padding: 0px;
-	overflow: hidden;
 	font-family: "Condensed";
 	color: #FFFFFF;
 	text-transform: uppercase;
@@ -155,7 +154,7 @@ body {
 	left: 1675px; 
 	height: 67px; 
 	line-height: 50px; 
-	width: 200px; 
+	width: 195px; 
 	font-size: 42px;
 	z-index: 3; 
 	opacity: 0;
@@ -177,7 +176,7 @@ body {
 	left: 1675px; 
 	height: 67px; 
 	line-height: 50px; 
-	width: 200px; 
+	width: 195px; 
 	font-size: 42px; 
 	z-index: 3; 
 	opacity: 0;
