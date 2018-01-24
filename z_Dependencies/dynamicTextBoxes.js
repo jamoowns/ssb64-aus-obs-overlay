@@ -8,7 +8,7 @@ function Shrink(container) {
 }
 
 function resize(container) {
-	$(container).css('font-size', "60px");
+	$(container).css('font-size', "45px");
 	
 	Shrink(container);
 }
