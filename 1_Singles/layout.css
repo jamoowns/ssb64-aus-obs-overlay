@@ -43,7 +43,7 @@ body {
 	position: absolute;
 	width: 47px;
 	text-align: center;
-	font-size: 48pt;
+	font-size: 75px;
 	line-height: 50px;
 	height: 50px;
 	font-family: "Bold";
@@ -60,15 +60,15 @@ body {
 }
 
 #Score_One {
-	top: 243px;
+	top: 263px;
 	color: #FFFFFF;
-	font-size: 48px;
+	font-size: 55px;
 	left: 1420px;
 }
 #Score_Two {
-	top: 540px;
+	top: 560px;
 	color: #FFFFFF;
-	font-size: 48px;
+	font-size: 55px;
 	left: 1420px;
 }
 
@@ -77,9 +77,9 @@ body {
 	font-family: "Bold";
 	width: 170px;
 	height: 38px;
-	bottom: 85px;
+	bottom: 65px;
 	line-height: 28px;
-	font-size: 42px;
+	font-size: 45px;
 	text-align: center;
 	z-index: 2;
 	right: 300px;
@@ -100,9 +100,9 @@ body {
 	font-family: "Bold";
 	width: 170px;
 	height: 38px;
-	bottom: 35px;
+	bottom: 15px;
 	line-height: 28px;
-	font-size: 42px;
+	font-size: 25px;
 	text-align: center;
 	z-index: 2;
 	right: 300px;
@@ -130,33 +130,34 @@ body {
 }
 
 #Character_One {
-	top: 95px;
+	top: 115px;
 	right: 150px;
 }
 
 #Character_Two {
-	top: 393px;
+	top: 413px;
 	right: 150px;
 }
 
 #Country_One {
-	top: 45px;
+	top: 65px;
 	left: 1810px;
+    
 }
 
 #Country_Two {
-	top: 345px;
+	top: 365px;
 	left: 1810px;
 }
 
 #Player_One {
 	position: absolute; 
-	top: 239px;
-	left: 1675px; 
+	top: 259px;
+	left: 1670px; 
 	height: 67px; 
 	line-height: 50px; 
-	width: 195px; 
-	font-size: 42px;
+	width: 200px; 
+	font-size: 55px;
 	z-index: 3; 
 	opacity: 0;
 	text-align: center; 
@@ -173,12 +174,12 @@ body {
 
 #Player_Two {
 	position: absolute; 
-	top: 537px;
-	left: 1675px; 
+	top: 557px;
+	left: 1670px; 
 	height: 67px; 
 	line-height: 50px; 
-	width: 195px; 
-	font-size: 42px; 
+	width: 200px; 
+	font-size: 55px; 
 	z-index: 3; 
 	opacity: 0;
 	text-align: center;
@@ -198,9 +199,9 @@ body {
 	font-family: "Bold"; 
 	width: 200px; 
 	height: 38px; 
-	bottom: 180px;
+	bottom: 160px;
 	line-height: 28px;
-	font-size: 42px;
+	font-size: 40px;
 	text-align: center;
 	z-index: 2;
 	right: 305px;
