@@ -32,8 +32,10 @@ function loadingFn(loadingEvent){
 
 async function run(){
 	var tournament = "simbarumba-2"; // Must include both players in this tournament.
-	let Player_One = "Oats";
-	let Player_Two = "Pete";
+
+	let players = await readFromJson();
+	let Player_One = players[0];
+	let Player_Two = players[1];
 	updateContent('#p1', Player_One);
 	updateContent('#p2', Player_Two);
 
@@ -54,67 +56,16 @@ async function run(){
 //JSON file containing all current game information
 var StreamJSON = '../z_Dependencies/settings.json';
 
-function readFromJson(StreamJSON){
-	$.getJSON(StreamJSON, function(d){
-		Score_One = d.Score_One;
-		Score_Two = d.Score_Two;
-
-		Country_One = d.Country_One;
-		Player_One = d.Player_One;
-		Port_One = "P" + d.Port_One;
-
-		Country_Two = d.Country_Two;
-		Player_Two = d.Player_Two;
-		Port_Two = "P" + d.Port_Two;
-
-		
-		Round1 = d.Round;
-	});
+async function readFromJson(){
+	let f = await $.getJSON('../z_Dependencies/settings.json');
+	
+	let playerOne = f.Player_One;
+	let playerTwo = f.Player_Two;
+	return [playerOne, playerTwo]
 }
 	
-function Build() {
-	var xjs = require('xjs');
-	var App = new xjs.App();
-	var XJSitem;
-	var XJSframe = null;
-
-	xjs.ready().then(xjs.Source.getCurrentSource).then(function(curItem) {
-		App.getVersion().then(function(res) {
-			var version = res;
-			console.log(version);
-		});
-		
-		isXsplit = true;
-
-		XJSitem = curItem;
-
-		XJSitem.setBrowserCustomSize(xjs.Rectangle.fromDimensions(1280,720));
-		XJSitem.setPosition(xjs.Rectangle.fromCoordinates(0,0,1,1));
-		XJSitem.setPositionLocked(true);
-		window.external.SetLocalProperty("prop:Browser60fps","1");
-
-		XJSitem.getSceneId().then(function(scene) {
-			xjs.Scene.getByIdAsync(scene).then(function(scene) {
-				return scene.getSources();
-			}).then(function(items) {
-				for (var i in items) {
-					if(items[i]._name.indexOf('.webm') != -1) {
-						items[i].setActionAfterPlayback(2);
-						items[i].setAutostartOnSceneLoad(true);
-						items[i].setRememberingPlaybackPosition(false);
-						items[i].setVisible(true);
-						items[i].setPosition(xjs.Rectangle.fromCoordinates(0,0,1,1));
-						items[i].setPlaying(true);
-						items[i].setFullDynamicColorRange(false);
-					}
-				}
-			});
-		});
-	});
-}
 
 //Build the Displayed scene
-Build();
 
 run();
 </script>
