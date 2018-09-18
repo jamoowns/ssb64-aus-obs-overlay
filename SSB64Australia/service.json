@@ -1,0 +1,8 @@
+{
+    "settings": {
+        "key": "live_107931890_39iQS3jOIFRXMbNNx09AH4zCwtxwxx",
+        "server": "rtmp://live-syd.twitch.tv/app",
+        "service": "Twitch"
+    },
+    "type": "rtmp_common"
+}

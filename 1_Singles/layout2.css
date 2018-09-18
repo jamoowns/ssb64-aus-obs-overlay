@@ -1,0 +1,298 @@
+@font-face { src:url("../z_Dependencies/Fonts/BebasNeue.otf"); font-family: "Bold"; }
+@font-face { src:url("../z_Dependencies/Fonts/BebasNeue.otf"); font-family: "Condensed"; }
+
+body {
+	width: 1920px;
+	height: 1080px;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	font-family: "Condensed";
+	color: #FFFFFF;
+	text-transform: uppercase;
+}
+
+.Icon_Container {
+	position: absolute;
+	left: 0px;
+	width: 40px;
+	height: 50px;
+	z-index: 2;
+	opacity: 0;
+}
+
+.Country {
+	position: absolute;
+	top: 8px;
+	height: 28px;
+    z-index: 3;
+}
+
+.Character {
+	position: absolute;
+	height: 32px;
+	width: 70px;
+	z-index: 2;
+	opacity: 0;
+}
+
+.Hidden {
+	display:none;
+}
+
+#Score_One, #Score_Two {
+	position: absolute;
+	width: 47px;
+	text-align: center;
+	font-size: 75px;
+	line-height: 50px;
+	height: 50px;
+	font-family: "Bold";
+	opacity: 0;
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#Score_One {
+	bottom: 30px;
+	color: #FFFFFF;
+	font-size: 55px;
+	left: 375px;
+}
+#Score_Two {
+	bottom: 30px;
+	color: #FFFFFF;
+	font-size: 55px;
+	left: 515px;
+}
+
+#Commentator_One { 
+	position: absolute;
+	font-family: "Bold";
+	width: 200px;
+	height: 38px;
+	top: 480px;
+	line-height: 28px;
+	font-size: 45px;
+	text-align: left;
+	z-index: 2;
+	left: 30px;
+	opacity: 0;
+	color: #FFFFFF; 
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+#Commentator_Two {
+	position: absolute;
+	font-family: "Bold";
+	width: 200px;
+	height: 38px;
+	top: 480px;
+	line-height: 28px;
+	font-size: 45px;
+	text-align: right;
+	z-index: 2;
+	left: 710px;
+	opacity: 0;
+	color: #FFFFFF; 
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#Icon_Container_One {
+	top: 0px;
+	left: 0px;
+}
+
+#Icon_Container_Two {
+	top: 0px;
+	right: 0px;
+}
+
+#Character_One {
+	bottom: 127px;
+	left: 15px;
+}
+
+#Character_Two {
+	bottom: 127px;
+	left: 855px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+#Country_One {
+	top: 870px;
+	left: 25px;
+}
+
+#Country_Two {
+	top: 870px;
+	left: 850px;
+}
+
+#Player_One {
+	position: absolute; 
+	bottom: 25px;
+	left: 125px; 
+	height: 50px; 
+	line-height: 50px; 
+	width: 190px; 
+	font-size: 55px; 
+	z-index: 3; 
+	opacity: 0;
+	text-align: center; 
+    text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#Player_Two {
+	position: absolute; 
+	bottom: 25px;
+	left: 625px; 
+	height: 50px; 
+	line-height: 50px; 
+	width: 190px; 
+	font-size: 55px; 
+	z-index: 3; 
+	opacity: 0;
+	text-align: center; 
+    text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#Port_One { 
+    position: absolute; 
+	top: 895px;
+	left: 13px; 
+	height: 45px; 
+	line-height: 50px; 
+	width: 200px; 
+	font-size: 30px; 
+	z-index: 3; 
+	opacity: 0;
+	text-align: center;
+    color: #1C49E4;
+    text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#Port_Two { 
+    position: absolute; 
+	top: 895px;
+	left: 730px; 
+	height: 45px; 
+	line-height: 50px; 
+	width: 200px; 
+	font-size: 30px; 
+	z-index: 3; 
+	opacity: 0;
+	text-align: center;
+    color: #00B716;
+    text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+    
+#Round1 {
+	position: absolute; 
+	font-family: "Bold"; 
+	width: 400px; 
+	height: 100px; 
+	top: 140px;
+	line-height: 28px;
+	font-size: 50px;
+	text-align: right;
+	z-index: 2;
+	right: 20px;
+	opacity: 0;
+	color: #FFFFFF;
+	text-shadow: 
+		-1px -1px 0 #000000,
+		3px -1px 0 #000000,
+		-1px 1px 0 #000000,
+		3px 3px 0 #000000,  
+		-3px 0 0 #000000,
+		4px 0 0 #000000,
+		0 4px 0 #000000,
+		0 -3px 0 #000000;
+}
+
+#Logo {
+	position: absolute;
+	width: 320px;
+	height: 215px;
+	top: 0px;
+	z-index: 4;
+	left: 0px;
+	opacity: 0;
+}
+
+#Breaking_News_Wrapper {
+	position: absolute;
+	font-size: 40px;
+	top: 5px;
+	z-index: 4;
+	right: 550px;
+	opacity: 0;
+	width: 650px;
+	text-align: left;
+	color: #FFFFFF;
+    text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
