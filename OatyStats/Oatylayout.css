@@ -116,9 +116,13 @@ body {
 
 #p1 {
 	position: absolute; 
-	font-size: 90px;
-	top: 375px;
-	left: 450px;
+	top: 475px;
+	left: 350px; 
+	height: 67px; 
+	line-height: 25px; 
+	width: 325px; 
+	font-size: 100px;
+	z-index: 3; 
 	text-align: center; 
     text-shadow: 
 		-1px -1px 0 #000000,
@@ -131,11 +135,16 @@ body {
 		0 -2px 0 #000000;
 }
 
+
 #p2 {
 	position: absolute; 
-	font-size: 90px;
-	top: 375px;
-	left: 950px;
+	top: 475px;
+	left: 790px; 
+	height: 67px; 
+	line-height: 25px; 
+	width: 325px; 
+	font-size: 100px;
+	z-index: 3; 
 	text-align: center; 
     text-shadow: 
 		-1px -1px 0 #000000,
@@ -151,9 +160,8 @@ body {
 #debug {
 	position: absolute; 
 	font-size: 38px;
-
 	top: 350px;
-	right: 1045px;
+	right: 1015px;
 	text-shadow: 
 		-1px -1px 0 #000000,
 		2px -1px 0 #000000,
@@ -173,26 +181,4 @@ body {
 	z-index: 4;
 	left: 0px;
 	opacity: 0;
-}
-
-#Breaking_News_Wrapper {
-	position: absolute;
-	font-size: 40px;
-	top: 5px;
-	z-index: 4;
-	right: 550px;
-	opacity: 1;
-	height: 50px;
-	width: 650px;
-	text-align: left;
-	color: #FFFFFF;
-    text-shadow: 
-		-1px -1px 0 #000000,
-		2px -1px 0 #000000,
-		-1px 2px 0 #000000,
-		2px 2px 0 #000000,  
-		-2px 0 0 #000000,
-		3px 0 0 #000000,
-		0 3px 0 #000000,
-		0 -2px 0 #000000;
 }
