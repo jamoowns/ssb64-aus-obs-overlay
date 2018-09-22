@@ -114,6 +114,24 @@ body {
 		0 -2px 0 #000000;
 }
 
+#recentSet {
+	position: absolute;
+	top: 780px;
+	left: 400px;
+	font-size: 50px;
+	text-align: center;
+	font-family: "Bold";
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
 #p1 {
 	position: absolute; 
 	top: 475px;
@@ -157,7 +175,7 @@ body {
 		0 -2px 0 #000000;
 }
     
-#debug {
+#loading {
 	position: absolute; 
 	font-size: 38px;
 	top: 350px;

@@ -13,44 +13,55 @@
 <p id="p1" class="resizable"></p>
 <p id="p1SetScore">-</p>
 <p id="p1MatchScore">-</p>
-<p id="p1RecentWin">-</p>
 
 <p id="p2" class="resizable"></p>
 <p id="p2SetScore">-</p>
 <p id="p2MatchScore">-</p>
-<p id="p2RecentWin">-</p>
 
-<p id="debug">Loading</p>
+<p id="recentSet">-</p>
+
+<p id="loading">Loading</p>
 
 <script type="text/javascript">
 
 function loadingFn(loadingEvent){
 	if (loadingEvent.getEventType() == EventType.SETS){
-		updateContent('#debug', "Loading... " + loadingEvent.getMessage() + " tournaments");
+		updateContent('#loading', "Loading... " + loadingEvent.getMessage() + " tournaments");
+	} else if (loadingEvent.getEventType() == EventType.DEBUG){
+		updateContent("#recentSet", loadingEvent.getMessage());
+	} else if (loadingEvent.getEventType() == EventType.INFO){
+		updateContent('#loading', loadingEvent.getMessage());
 	}
 }
 
 async function run(){
 	var tournament = "simbarumba-2"; // Must include both players in this tournament.
 
-	//let players = await readFromJson();
-	let Player_One = "James3927";
-	let Player_Two = "Oats";
-	updateContent('#p1', Player_One);
-	updateContent('#p2', Player_Two);
+	try{
+		let players = await readFromJson();
+		let Player_One = players[0];
+		let Player_Two = players[1];
+		updateContent('#p1', Player_One);
+		updateContent('#p2', Player_Two);
 
-	var h2h = await getHeadToHead(Player_One, Player_Two, tournament, loadingFn);
+		var h2h = await getHeadToHead(Player_One, Player_Two, tournament, loadingFn);
 	
-	updateContent('#p1SetScore', h2h.getSetCount().getP1Score());
-	updateContent('#p1MatchScore', h2h.getMatchCount().getP1Score());
-	let p1RecentWin = h2h.getMostRecentWins()[0];
-	//updateContent('#p1RecentWin', "Most Recent Win: " + "(" + p1RecentWin.toDateString() + ")");
-	
-	updateContent('#p2SetScore', h2h.getSetCount().getP2Score());
-	updateContent('#p2MatchScore', h2h.getMatchCount().getP2Score());
-	
-	let p2RecentWin = h2h.getMostRecentWins()[1];
-	//updateContent('#p2RecentWin', "Most Recent Win: " + "(" + p2RecentWin.toDateString() + ")");
+		if (typeof(h2h) !== "undefined"){
+			updateContent('#p1SetScore', h2h.getSetCount().getP1Score());
+			updateContent('#p1MatchScore', h2h.getMatchCount().getP1Score());
+			updateContent('#p2SetScore', h2h.getSetCount().getP2Score());
+			updateContent('#p2MatchScore', h2h.getMatchCount().getP2Score());
+
+			let mostRecentSet = h2h.getMostRecentSet();
+			updateContent("#recentSet", "Most Recent Set: " + mostRecentSet.getP1Score() + " - " + mostRecentSet.getP2Score() + " (" + mostRecentSet.getDate().toDateString() + ")");
+			
+		} else {
+			//TODO: Do something here? this means lookup of players went wrong.
+		}
+	} catch (err) {
+		//TODO: Put a logger here... (Cheating and using recent set for debugging)
+		updateContent("#recentSet", err);
+	}
 }
 	
 //JSON file containing all current game information

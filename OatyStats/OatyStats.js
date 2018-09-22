@@ -184,10 +184,21 @@ class HeadToHeadDetails {
   }
 
   /**
-   * @returns {[Date, Date]} a tuple containing P1 then P2 most recent wins
+   * @returns {[Set, Set]} a tuple containing P1 then P2 most recent set wins
    */
   getMostRecentWins() {
     return this.recentWins;
+  }
+
+  /**
+   * @returns {Set} the most recent set
+   */
+  getMostRecentSet() {
+    if (this.recentWins[0].getDate() > this.recentWins[1].getDate()) {
+      return this.recentWins[0];
+    } else {
+      return this.recentWins[1];
+    }
   }
 }
 
@@ -347,13 +358,17 @@ async function getMatchupData(pId, oId){
 
                 let recentWinsDate = getMostRecentWins(setsInPool, pId, oId);
 
-                if (p1MostRecentWin < recentWinsDate[0]){
-                    p1MostRecentWin = recentWinsDate[0];
-                    // TODO: Cleanup win date code.
-                    // TODO: Implement P1 and P2 score setting.
+                if (typeof(recentWinsDate[0]) !== "undefined" && typeof(recentWinsDate[0].getDate()) !== "undefined"){
+                  if (p1MostRecentWin < recentWinsDate[0].getDate()){
+                      var p1Set = recentWinsDate[0];
+                      p1MostRecentWin = recentWinsDate[0].getDate();
+                  }
                 }
-                if (p2MostRecentWin < recentWinsDate[1]){
-                    p2MostRecentWin = recentWinsDate[1];
+                if (typeof(recentWinsDate[1]) !== "undefined" && typeof(recentWinsDate[1].getDate()) !== "undefined"){
+                  if (p2MostRecentWin < recentWinsDate[1].getDate()){
+                      var p2Set = recentWinsDate[1];
+                      p2MostRecentWin = recentWinsDate[1].getDate();
+                  }
                 }
 
                 setScore.addScore(setCount);
@@ -364,7 +379,7 @@ async function getMatchupData(pId, oId){
     let h2h = new HeadToHeadDetails();
     h2h.setSetCount(setScore);
     h2h.setMatchCount(matchScore);
-    h2h.setMostRecentWins([p1MostRecentWin, p2MostRecentWin]);
+    h2h.setMostRecentWins([p1Set, p2Set]);
 
     return h2h;
 }
@@ -422,14 +437,14 @@ async function getAllSetsInPhaseGroup(phaseGroupId) {
     let f = await response.json();
 
     var sets = [];
-    
+
     for (var i = 0; i < f.entities.sets.length; i++) {
       
       let set = f.entities.sets[i];
 
       let p1Id = pIdFromEntrants(f.entities.entrants, set.entrant1Id);
       let p2Id = pIdFromEntrants(f.entities.entrants, set.entrant2Id);
-      sets.push(new Set(set.completedAt, p1Id, set.entrant1Score, p2Id, set.entrant2Score));
+      sets.push(new Set(new Date(set.completedAt*1000), p1Id, set.entrant1Score, p2Id, set.entrant2Score));
     }
 
     // Caching the phaseGroup sets for future lookups.
@@ -454,16 +469,18 @@ function getMostRecentWins(sets, pId, oId) {
         if (set.hasPlayers(pId, oId)) {
           if (set.getWinnerId() == pId) {
             if (p1MostRecentWin < set.getDate()){
-                p1MostRecentWin = new Date(set.getDate() * 1000);
+                var p1Set = new Set(set.getDate(), pId, set.getScore(pId), oId, set.getScore(oId));
+                p1MostRecentWin = set.getDate();
             }
           } else {
             if (p2MostRecentWin < set.getDate()){
-                p2MostRecentWin = new Date(set.getDate() * 1000);
+                var p2Set = new Set(set.getDate(), oId, set.getScore(oId), pId, set.getScore(pId));
+                p2MostRecentWin = set.getDate();
             }
           }
         }
     }
-    return [p1MostRecentWin, p2MostRecentWin];
+    return [p1Set, p2Set];
 }
 
 /**
@@ -573,7 +590,11 @@ async function getHeadToHead(p1Gamertag, p2Gamertag, tournament, loadingCallback
     let player1Id = await getPlayerIdFromTagInTournament(tournament, p1Gamertag);
     let player2Id = await getPlayerIdFromTagInTournament(tournament, p2Gamertag);
 
-    let matchupData = await getMatchupData(player1Id, player2Id);
+    if (player1Id != -1 && player2Id != -1){
+      var matchupData = await getMatchupData(player1Id, player2Id);
+    } else {
+      sendEvent(EventType.DEBUG, "Could not find the given players this tournament");
+    }
     sendEvent(EventType.INFO, "Loading Complete");
 
     return matchupData;
