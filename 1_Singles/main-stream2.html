@@ -1,0 +1,214 @@
+<html>
+<head>
+<script src="../z_Dependencies/dynamicTextBoxes.js" type="text/javascript"></script>
+<script src="../z_Dependencies/jquery.js" type="text/javascript"></script>
+<script src="../z_Dependencies/jquery.transit.js" type="text/javascript"></script>
+<script src="../z_Dependencies/xjs.js" type="text/javascript"></script>
+<script src="../z_Dependencies/countries.js" type="text/javascript"></script>
+<script src="../z_Dependencies/content-utilities.js" type="text/javascript"></script>
+<script src="../1_Singles/ticker.js" type="text/javascript"></script>
+<link rel = "stylesheet"
+   type = "text/css"
+   href = "layout.css" />
+
+	<div id="Meta_One">
+		<span id="Country_One" class="Country"></span>
+		<div id="Player_One" class="resizable"></div>
+        <div id="Port_One" class="resizable"></div>
+		<div id="Character_One" class="Character"></div>
+	</div>
+
+	<div id="Meta_Two">
+		<span id="Country_Two" class="Country"></span>
+		<div id="Player_Two" class="resizable"></div>
+        <div id="Port_Two" class="resizable"></div>
+		<div id="Character_Two" class="Character"></div>
+	</div>
+
+	<div id="Scores">
+		<span id="Score_One"></span>
+		<span id="Score_Two"></span>
+	</div>
+
+	<div id="Round1" class="resizable"></div>
+
+	<span id="CHOne" class="Hidden"></span>
+	<span id="CHTwo" class="Hidden"></span>
+    
+    <span id="STOne" class="Hidden"></span>
+    <span id="STTwo" class="Hidden"></span>
+    
+    <div id='Commentator_One' class="resizable"></div>
+    <div id='Commentator_Two' class="resizable"></div>
+
+    <marquee id="Breaking_News_Wrapper" behavior="scroll" direction="left">
+		<span id="Breaking_News" src="../z_Dependencies/ticker.html"></span>
+	</marquee>
+</head>
+
+<body>
+<script type="text/javascript">	
+	//JSON file containing all current game information
+	var StreamJSON = '../z_Dependencies/settings-stream2.json';
+
+	var Score_One;
+	var Country_One;
+	var Player_One;
+    var Port_One
+    var Character_One;
+
+	var Score_Two;
+	var Country_Two;
+	var Player_Two;
+    var Port_Two
+	var Character_Two;
+            
+	var Commentator_One;
+	var Commentator_Two;
+
+	var Round1;
+	var Round1;
+    
+	//var Breaking_News;
+
+	function readFromJson(StreamJSON){
+		$.getJSON(StreamJSON, function(d){
+			Score_One = d.Score_One;
+			Score_Two = d.Score_Two;
+
+			Country_One = d.Country_One;
+			Player_One = d.Player_One;
+            Port_One = "P" + d.Port_One;
+            Character_One = d.Character_One;
+
+			Country_Two = d.Country_Two;
+			Player_Two = d.Player_Two;
+            Port_Two = "P" + d.Port_Two;
+            Character_Two = d.Character_Two;
+            
+            Commentator_One = d.Commentator_Name_One;
+			Commentator_Two = d.Commentator_Name_Two;
+
+			Round1 = d.Round;
+
+			//Breaking_News = d.Breaking_News;
+		});
+	}
+	
+	function Build() {
+  		var xjs = require('xjs');
+  		var App = new xjs.App();
+  		var XJSitem;
+  		var XJSframe = null;
+
+  		xjs.ready().then(xjs.Source.getCurrentSource).then(function(curItem) {
+  			App.getVersion().then(function(res) {
+  				var version = res;
+  				console.log(version);
+  			});
+			
+  			isXsplit = true;
+
+  			XJSitem = curItem;
+
+  			XJSitem.setBrowserCustomSize(xjs.Rectangle.fromDimensions(1280,720));
+  			XJSitem.setPosition(xjs.Rectangle.fromCoordinates(0,0,1,1));
+  			XJSitem.setPositionLocked(true);
+  			window.external.SetLocalProperty("prop:Browser60fps","1");
+
+			XJSitem.getSceneId().then(function(scene) {
+				xjs.Scene.getByIdAsync(scene).then(function(scene) {
+					return scene.getSources();
+				}).then(function(items) {
+					for (var i in items) {
+						if(items[i]._name.indexOf('.webm') != -1) {
+							items[i].setActionAfterPlayback(2);
+							items[i].setAutostartOnSceneLoad(true);
+							items[i].setRememberingPlaybackPosition(false);
+							items[i].setVisible(true);
+							items[i].setPosition(xjs.Rectangle.fromCoordinates(0,0,1,1));
+							items[i].setPlaying(true);
+							items[i].setFullDynamicColorRange(false);
+						}
+					}
+				});
+			});
+		});
+	}
+
+	function Updates() {
+		readFromJson(StreamJSON);
+
+        if ($("#Commentator_One").text() != Commentator_One) {
+			updateContentFadeDelayed('#Commentator_One', Commentator_One, 250, 600);
+		}
+		
+		if ($("#Commentator_Two").text() != Commentator_Two) {
+			updateContentFadeDelayed('#Commentator_Two', Commentator_Two, 250, 600);
+		}
+		
+        if ($("#STOne").text() != Country_One) {
+			updateContent('#STOne', Country_One);
+			updateContentFadeDelayed('#Country_One', '<img src="../z_Dependencies/Logos/'+ Country_One +'.png" width="64" onerror="this.style.display=\'none\'" />', 250, 600);
+		}
+				
+        if ($("#STTwo").text() != Country_Two) {
+			updateContent('#STTwo', Country_Two);
+			updateContentFadeDelayed('#Country_Two', '<img src="../z_Dependencies/Logos/'+ Country_Two +'.png" width="64" onerror="this.style.display=\'none\'" />', 250, 600);
+		}
+
+		if ($("#Player_One").text() != Player_One) {
+			updateContentFadeDelayed('#Player_One', Player_One, 300, 600);
+		}
+
+		if ($("#Player_Two").text() != Player_Two) {
+			updateContentFadeDelayed('#Player_Two', Player_Two, 300, 600);
+		}
+        
+        if ($("#Port_One").text() != Port_One) {
+			updateContentFadeDelayed('#Port_One', Port_One, 300, 600);
+		}
+        
+        if ($("#Port_Two").text() != Port_Two) {
+			updateContentFadeDelayed('#Port_Two', Port_Two, 300, 600);
+		}
+
+		if ($("#Score_One").text() != Score_One) {
+			updateContentFadeDelayed('#Score_One', Score_One, 300, 600);
+		}
+
+		if ($("#Score_Two").text() != Score_Two) {
+			updateContentFadeDelayed('#Score_Two', Score_Two, 300, 600);
+		}
+
+		if ($("#CHOne").text() != Character_One) {
+			updateContent('#CHOne', Character_One);
+			updateContentFadeDelayed('#Character_One', '<img src="../z_Dependencies/Characters/'+ Character_One +'.png" height="128" onerror="this.style.display=\'none\'" />', 0, 600);
+		}
+
+		if ($("#CHTwo").text() != Character_Two) {
+			updateContent('#CHTwo', Character_Two);
+			updateContentFadeDelayed('#Character_Two', '<img src="../z_Dependencies/Characters/'+ Character_Two +'.png" height="128" onerror="this.style.display=\'none\'" />', 300, 600);
+		}
+
+		if ($("#Round1").text() != Round1) {
+			updateContentFadeDelayed('#Round1', Round1, 250, 600);
+		}
+		setTicker();
+	}
+  
+    //Build the Displayed scene
+    Build();
+  
+    //Start overlay layout update loop
+    setInterval (function() { Updates(); }, 1000);
+
+	setTimeout (function() { InitialTicker(); }, 1000);
+
+	setInterval (function() { FetchResults(); }, 10000);
+
+
+</script>
+
+</body>
+</html>

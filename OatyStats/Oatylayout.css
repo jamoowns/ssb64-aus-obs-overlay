@@ -1,0 +1,184 @@
+@font-face { src:url("../z_Dependencies/Fonts/BebasNeue.otf"); font-family: "Bold"; }
+@font-face { src:url("../z_Dependencies/Fonts/BebasNeue.otf"); font-family: "Condensed"; }
+
+body {
+	width: 1920px;
+	height: 1080px;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	font-family: "Condensed";
+	color: #FFFFFF;
+	text-transform: uppercase;
+	background-image: url("OatyStats_overlay.png");
+	background-repeat:no-repeat;
+	background-position: -250px 50px;
+	
+}
+
+.Icon_Container {
+	position: absolute;
+	left: 0px;
+	width: 40px;
+	height: 50px;
+	z-index: 2;
+	opacity: 0;
+}
+
+.Country {
+	position: absolute;
+	top: 11px;
+}
+
+.Character {
+	position: absolute;
+	height: 32px;
+	width: 70px;
+	z-index: 2;
+	opacity: 0;
+}
+
+.Hidden {
+	display:none;
+}
+
+#p1SetScore {
+	position: absolute;
+	top: 560px;
+	left: 450px;
+	font-size: 50px;
+	text-align: center;
+	font-family: "Bold";
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#p1MatchScore {
+	position: absolute;
+	top: 630px;
+	left: 450px;
+	font-size: 50px;
+	text-align: center;
+	font-family: "Bold";
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#p2SetScore {
+	position: absolute;
+	top: 560px;
+	left: 950px;
+	font-size: 50px;
+	text-align: center;
+	font-family: "Bold";
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#p2MatchScore {
+	position: absolute;
+	top: 630px;
+	left: 950px;
+	font-size: 50px;
+	text-align: center;
+	font-family: "Bold";
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#p1 {
+	position: absolute; 
+	top: 475px;
+	left: 350px; 
+	height: 67px; 
+	line-height: 25px; 
+	width: 325px; 
+	font-size: 100px;
+	z-index: 3; 
+	text-align: center; 
+    text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+
+#p2 {
+	position: absolute; 
+	top: 475px;
+	left: 790px; 
+	height: 67px; 
+	line-height: 25px; 
+	width: 325px; 
+	font-size: 100px;
+	z-index: 3; 
+	text-align: center; 
+    text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 2px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+    
+#debug {
+	position: absolute; 
+	font-size: 38px;
+	top: 350px;
+	right: 1015px;
+	text-shadow: 
+		-1px -1px 0 #000000,
+		2px -1px 0 #000000,
+		-1px 1px 0 #000000,
+		2px 2px 0 #000000,  
+		-2px 0 0 #000000,
+		3px 0 0 #000000,
+		0 3px 0 #000000,
+		0 -2px 0 #000000;
+}
+
+#Logo {
+	position: absolute;
+	width: 320px;
+	height: 215px;
+	top: 0px;
+	z-index: 4;
+	left: 0px;
+	opacity: 0;
+}
