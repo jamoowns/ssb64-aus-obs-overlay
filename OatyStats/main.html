@@ -53,7 +53,7 @@ async function run(){
 			updateContent('#p2MatchScore', h2h.getMatchCount().getP2Score());
 
 			let mostRecentSet = h2h.getMostRecentSet();
-			updateContent("#recentSet", "Most Recent Set: " + mostRecentSet.getP1Score() + " - " + mostRecentSet.getP2Score() + " (" + mostRecentSet.getDate().toDateString() + ")");
+			updateContent("#recentSet", mostRecentSet.getP1Score() + " - " + mostRecentSet.getP2Score() + " (" + mostRecentSet.getDate().toDateString() + ")");
 			
 		} else {
 			//TODO: Do something here? this means lookup of players went wrong.
