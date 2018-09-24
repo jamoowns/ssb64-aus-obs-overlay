@@ -2,6 +2,7 @@
 const START_OF_YEAR = (new Date((new Date()).getFullYear(), 0)).getTime() / 1000;
 const SSB64_GAME_ID = 4;
 const SINGLES_EVENT_ID = 1;
+const STATE_COMPLETE = 3;
 
 /** Classes. */
 var EventType = Object.freeze({"SETS":1, "MATCHES":2, "INFO":3, "DEBUG":4})
@@ -457,9 +458,11 @@ async function getAllSetsInPhaseGroup(phaseGroupId) {
       
       let set = f.entities.sets[i];
 
-      let e1pId = pIdFromEntrants(f.entities.entrants, set.entrant1Id);
-      let e2pId = pIdFromEntrants(f.entities.entrants, set.entrant2Id);
-      sets.push(new Set(new Date(set.completedAt*1000), e1pId, set.entrant1Score, e2pId, set.entrant2Score));
+      if (set.state == STATE_COMPLETE){
+        let e1pId = pIdFromEntrants(f.entities.entrants, set.entrant1Id);
+        let e2pId = pIdFromEntrants(f.entities.entrants, set.entrant2Id);
+        sets.push(new Set(new Date(set.completedAt*1000), e1pId, set.entrant1Score, e2pId, set.entrant2Score));
+      }
     }
 
     // Caching the phaseGroup sets for future lookups.
