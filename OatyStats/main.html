@@ -54,7 +54,7 @@ async function run(){
 			updateContent('#p2MatchScore', h2h.getMatchCount().getP2Score());
 
 			let mostRecentSet = h2h.getMostRecentSet();
-			updateContent("#recentSetScore", mostRecentSet.getP1Score() + " - " + mostRecentSet.getP2Score());
+			updateContent("#recentSetScore", mostRecentSet.getScore(h2h.getP1id()) + " - " + mostRecentSet.getScore(h2h.getP2id()));
 			updateContent("#recentSetDate", mostRecentSet.getDate().toDateString());
 			
 		} else {
