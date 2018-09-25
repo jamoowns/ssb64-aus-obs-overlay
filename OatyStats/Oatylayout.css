@@ -12,7 +12,7 @@ body {
 	text-transform: uppercase;
 	background-image: url("OatyStats_overlay.png");
 	background-repeat:no-repeat;
-	background-position: -250px 50px;
+	background-position: -250px 55px;
 	
 }
 
@@ -25,18 +25,6 @@ body {
 	opacity: 0;
 }
 
-.Country {
-	position: absolute;
-	top: 11px;
-}
-
-.Character {
-	position: absolute;
-	height: 32px;
-	width: 70px;
-	z-index: 2;
-	opacity: 0;
-}
 
 .Hidden {
 	display:none;
@@ -44,8 +32,11 @@ body {
 
 #p1SetScore {
 	position: absolute;
-	top: 560px;
-	left: 450px;
+	top: 585px;
+	left: 435px;
+	line-height: 35px; 
+	height: 35px; 
+	width: 100px; 
 	font-size: 50px;
 	text-align: center;
 	font-family: "Bold";
@@ -62,8 +53,11 @@ body {
 
 #p1MatchScore {
 	position: absolute;
-	top: 630px;
-	left: 450px;
+	top: 650px;
+	left: 435px;
+	line-height: 35px; 
+	height: 35px; 
+	width: 100px; 
 	font-size: 50px;
 	text-align: center;
 	font-family: "Bold";
@@ -80,8 +74,11 @@ body {
 
 #p2SetScore {
 	position: absolute;
-	top: 560px;
-	left: 950px;
+	top: 585px;
+	left: 890px;
+	line-height: 35px; 
+	height: 35px; 
+	width: 100px; 
 	font-size: 50px;
 	text-align: center;
 	font-family: "Bold";
@@ -98,8 +95,11 @@ body {
 
 #p2MatchScore {
 	position: absolute;
-	top: 630px;
-	left: 950px;
+	top: 650px;
+	left: 890px;
+	line-height: 35px; 
+	height: 35px; 
+	width: 100px; 
 	font-size: 50px;
 	text-align: center;
 	font-family: "Bold";
@@ -114,11 +114,12 @@ body {
 		0 -2px 0 #000000;
 }
 
-#recentSet {
+#recentSetScore, #recentSetDate {
 	position: absolute;
-	top: 780px;
-	left: 400px;
+	top: 750px;
+	left: 500px;
 	font-size: 50px;
+	width: 425px; 
 	text-align: center;
 	font-family: "Bold";
 	text-shadow: 
@@ -130,18 +131,23 @@ body {
 		3px 0 0 #000000,
 		0 3px 0 #000000,
 		0 -2px 0 #000000;
+}
+
+#recentSetDate {
+	top: 810px;
 }
 
 #p1 {
 	position: absolute; 
-	top: 475px;
-	left: 350px; 
+	top: 490px;
+	left: 290px; 
+	margin: 25px 50px 50px 75px;
 	height: 67px; 
-	line-height: 25px; 
-	width: 325px; 
-	font-size: 100px;
+	line-height: 35px; 
+	width: 250px; 
 	z-index: 3; 
 	text-align: center; 
+	color: #FF0000;
     text-shadow: 
 		-1px -1px 0 #000000,
 		2px -1px 0 #000000,
@@ -156,14 +162,15 @@ body {
 
 #p2 {
 	position: absolute; 
-	top: 475px;
-	left: 790px; 
+	top: 490px;
+	left: 740px; 
+	margin: 25px 50px 50px 75px;
 	height: 67px; 
-	line-height: 25px; 
-	width: 325px; 
-	font-size: 100px;
+	line-height: 35px; 
+	width: 250px; 
 	z-index: 3; 
 	text-align: center; 
+	color: #FF0000;
     text-shadow: 
 		-1px -1px 0 #000000,
 		2px -1px 0 #000000,
@@ -178,8 +185,10 @@ body {
 #loading {
 	position: absolute; 
 	font-size: 38px;
-	top: 350px;
-	right: 1015px;
+	top: 360px;
+	right: 1000px;
+	width: 400px;
+	text-align: center; 
 	text-shadow: 
 		-1px -1px 0 #000000,
 		2px -1px 0 #000000,

@@ -18,7 +18,8 @@
 <p id="p2SetScore">-</p>
 <p id="p2MatchScore">-</p>
 
-<p id="recentSet">-</p>
+<p id="recentSetScore">-</p>
+<p id="recentSetDate">-</p>
 
 <p id="loading">Loading</p>
 
@@ -28,7 +29,7 @@ function loadingFn(loadingEvent){
 	if (loadingEvent.getEventType() == EventType.SETS){
 		updateContent('#loading', "Loading... " + loadingEvent.getMessage() + " tournaments");
 	} else if (loadingEvent.getEventType() == EventType.DEBUG){
-		updateContent("#recentSet", loadingEvent.getMessage());
+		updateContent("#recentSetScore", loadingEvent.getMessage());
 	} else if (loadingEvent.getEventType() == EventType.INFO){
 		updateContent('#loading', loadingEvent.getMessage());
 	}
@@ -39,21 +40,56 @@ async function run(){
 
 	try{
 		let players = await readFromJson();
-		let Player_One = players[0];
-		let Player_Two = players[1];
-		updateContent('#p1', Player_One);
-		updateContent('#p2', Player_Two);
+		let playerOne = players[0];
+		let playerTwo = players[1];
+		updateContent('#p1', playerOne);
+		updateContent('#p2', playerTwo);
 
-		var h2h = await getHeadToHead(Player_One, Player_Two, tournament, loadingFn);
+		var h2h = await getHeadToHead(playerOne, playerTwo, tournament, loadingFn);
 	
 		if (typeof(h2h) !== "undefined"){
-			updateContent('#p1SetScore', h2h.getSetCount().getP1Score());
-			updateContent('#p1MatchScore', h2h.getMatchCount().getP1Score());
-			updateContent('#p2SetScore', h2h.getSetCount().getP2Score());
-			updateContent('#p2MatchScore', h2h.getMatchCount().getP2Score());
+			let p1SetScore = h2h.getSetCount().getP1Score();
+			let p1MatchScore = h2h.getMatchCount().getP1Score();
+			
+			let p2SetScore = h2h.getSetCount().getP2Score();
+			let p2MatchScore = h2h.getMatchCount().getP2Score();
+
+			/** Some dirty code to add Tassy tourni stats...
+			 *  (Don't look at me like that future Jamo)
+			 * 
+			 * Begin Workaround 24/09/2018 >>
+			*/
+			if (playerOne == "Indefa" && playerTwo == "James3927") {
+				p1SetScore+=2;
+				p1MatchScore+=8;
+				p2SetScore+=1;
+				p2MatchScore+=6;
+			} else if (playerOne == "James3927" && playerTwo == "Indefa") {
+				p1SetScore+=1;
+				p1MatchScore+=6;
+				p2SetScore+=2;
+				p2MatchScore+=8;
+			} else if (playerOne == "Indefa" && playerTwo == "Blacktain Falcon") {
+				p1SetScore+=2;
+				p1MatchScore+=6;
+				p2SetScore+=0;
+				p2MatchScore+=1;
+			} else if (playerOne == "Blacktain Falcon" && playerTwo == "Indefa") {
+				p1SetScore+=0;
+				p1MatchScore+=1;
+				p2SetScore+=2;
+				p2MatchScore+=6;
+			}
+			/** End Workaround << */
+
+			updateContent('#p1SetScore', p1SetScore);
+			updateContent('#p1MatchScore', p1MatchScore);
+			updateContent('#p2SetScore', p2SetScore);
+			updateContent('#p2MatchScore', p2MatchScore);
 
 			let mostRecentSet = h2h.getMostRecentSet();
-			updateContent("#recentSet", "Most Recent Set: " + mostRecentSet.getP1Score() + " - " + mostRecentSet.getP2Score() + " (" + mostRecentSet.getDate().toDateString() + ")");
+			updateContent("#recentSetScore", mostRecentSet.getScore(h2h.getP1id()) + " - " + mostRecentSet.getScore(h2h.getP2id()));
+			updateContent("#recentSetDate", mostRecentSet.getDate().toDateString());
 			
 		} else {
 			//TODO: Do something here? this means lookup of players went wrong.

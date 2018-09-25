@@ -2,6 +2,7 @@
 const START_OF_YEAR = (new Date((new Date()).getFullYear(), 0)).getTime() / 1000;
 const SSB64_GAME_ID = 4;
 const SINGLES_EVENT_ID = 1;
+const STATE_COMPLETE = 3;
 
 /** Classes. */
 var EventType = Object.freeze({"SETS":1, "MATCHES":2, "INFO":3, "DEBUG":4})
@@ -163,6 +164,22 @@ class LoadingEvent {
 }
 
 class HeadToHeadDetails {
+  setP1id(p1Id){
+    this.p1Id = p1Id;
+  }
+
+  setP2id(p2Id){
+    this.p2Id = p2Id;
+  }
+
+  getP1id(){
+    return this.p1Id;
+  }
+
+  getP2id(){
+    return this.p2Id;
+  }
+
   setSetCount(count){
     this.setCount = count;
   }
@@ -288,11 +305,7 @@ function getByAttribute(collection, attributeId, value){
   */
 function isDateThisYear(date){
     // Check the date of the given tournament
-    if (date < START_OF_YEAR) {
-        return false;
-    } else {
-        return true;
-    }
+    return date >= START_OF_YEAR;
 }
 
 /**
@@ -377,6 +390,9 @@ async function getMatchupData(pId, oId){
         }
     }
     let h2h = new HeadToHeadDetails();
+    h2h.setP1id(pId);
+    h2h.setP2id(oId);
+    
     h2h.setSetCount(setScore);
     h2h.setMatchCount(matchScore);
     h2h.setMostRecentWins([p1Set, p2Set]);
@@ -442,9 +458,11 @@ async function getAllSetsInPhaseGroup(phaseGroupId) {
       
       let set = f.entities.sets[i];
 
-      let p1Id = pIdFromEntrants(f.entities.entrants, set.entrant1Id);
-      let p2Id = pIdFromEntrants(f.entities.entrants, set.entrant2Id);
-      sets.push(new Set(new Date(set.completedAt*1000), p1Id, set.entrant1Score, p2Id, set.entrant2Score));
+      if (set.state == STATE_COMPLETE){
+        let e1pId = pIdFromEntrants(f.entities.entrants, set.entrant1Id);
+        let e2pId = pIdFromEntrants(f.entities.entrants, set.entrant2Id);
+        sets.push(new Set(new Date(set.completedAt*1000), e1pId, set.entrant1Score, e2pId, set.entrant2Score));
+      }
     }
 
     // Caching the phaseGroup sets for future lookups.
@@ -468,15 +486,13 @@ function getMostRecentWins(sets, pId, oId) {
 
         if (set.hasPlayers(pId, oId)) {
           if (set.getWinnerId() == pId) {
-            if (p1MostRecentWin < set.getDate()){
-                var p1Set = new Set(set.getDate(), pId, set.getScore(pId), oId, set.getScore(oId));
-                p1MostRecentWin = set.getDate();
-            }
-          } else {
-            if (p2MostRecentWin < set.getDate()){
-                var p2Set = new Set(set.getDate(), oId, set.getScore(oId), pId, set.getScore(pId));
-                p2MostRecentWin = set.getDate();
-            }
+              if (p1MostRecentWin < set.getDate()){
+                  var p1Set = new Set(set.getDate(), pId, set.getScore(pId), oId, set.getScore(oId));
+                  p1MostRecentWin = set.getDate();
+              }
+          } else if (p2MostRecentWin < set.getDate()){
+              var p2Set = new Set(set.getDate(), oId, set.getScore(oId), pId, set.getScore(pId));
+              p2MostRecentWin = set.getDate();
           }
         }
     }
