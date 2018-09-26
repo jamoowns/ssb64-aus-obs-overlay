@@ -241,6 +241,7 @@ var loadingEventCb;
   * @return {number} playerId or -1 if not found
   */
 async function getPlayerIdFromTagInGroup(phase_group, gamerTag) {
+    gamerTag = gamerTag.toLowerCase()
     // Check if we have already cached this playerId
     let playerId = playerIdCache[gamerTag];
     if (typeof playerId !== "undefined") {
@@ -254,7 +255,7 @@ async function getPlayerIdFromTagInGroup(phase_group, gamerTag) {
     if (typeof(players) !== "undefined"){
       for (var i = 0; i < players.length; i++) {
           var player = players[i];
-          if (player.gamerTag == gamerTag) {
+          if (player.gamerTag.toLowerCase() == gamerTag) {
               // Cache the playerId for future use.
               playerIdCache[gamerTag] = player.id;
               return player.id;
@@ -564,6 +565,8 @@ function getSetWins(sets, pId, oId){
   * @return {number} playerId or -1 if not found
   */
 async function getPlayerIdFromTagInTournament(tournamentSlug, gamerTag){
+    gamerTag = gamerTag.toLowerCase();
+
     // Check if we have already cached this playerId
     let playerId = playerIdCache[gamerTag];
     if (typeof playerId !== "undefined") {
