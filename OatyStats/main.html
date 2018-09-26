@@ -10,6 +10,8 @@
    href = "Oatylayout.css" />
 </head>
 <body>
+<p id="loading">Loading</p>
+
 <p id="p1" class="resizable"></p>
 <p id="p1SetScore">-</p>
 <p id="p1MatchScore">-</p>
@@ -21,27 +23,41 @@
 <p id="recentSetScore">-</p>
 <p id="recentSetDate">-</p>
 
-<p id="loading">Loading</p>
-
 <script type="text/javascript">
+
+function clearContents(){
+		updateContent('#p1', "");
+		updateContent('#p1SetScore', "-");
+		updateContent('#p1MatchScore', "-");
+
+		updateContent('#p2', "-");
+		updateContent('#p2SetScore', "-");
+		updateContent('#p2MatchScore', "-");
+		
+		updateContent('#recentSetScore', "-");
+		updateContent('#recentSetDate', "-");
+}
+
+function debug(message){
+		// TODO: Put a logger here too
+		// TODO: Create a debug container
+		updateContent("#recentSetScore", message);
+}
 
 function loadingFn(loadingEvent){
 	if (loadingEvent.getEventType() == EventType.SETS){
 		updateContent('#loading', "Loading... " + loadingEvent.getMessage() + " tournaments");
-	} else if (loadingEvent.getEventType() == EventType.DEBUG){
-		updateContent("#recentSetScore", loadingEvent.getMessage());
 	} else if (loadingEvent.getEventType() == EventType.INFO){
 		updateContent('#loading', loadingEvent.getMessage());
-	}
+	} else if (loadingEvent.getEventType() == EventType.DEBUG){
+		debug(loadingEvent.getMessage());
+	} 
 }
 
-async function run(){
+async function run(playerOne, playerTwo){
 	var tournament = "simbarumba-2"; // Must include both players in this tournament.
 
 	try{
-		let players = await readFromJson();
-		let playerOne = players[0];
-		let playerTwo = players[1];
 		updateContent('#p1', playerOne);
 		updateContent('#p2', playerTwo);
 
@@ -88,15 +104,17 @@ async function run(){
 			updateContent('#p2MatchScore', p2MatchScore);
 
 			let mostRecentSet = h2h.getMostRecentSet();
-			updateContent("#recentSetScore", mostRecentSet.getScore(h2h.getP1id()) + " - " + mostRecentSet.getScore(h2h.getP2id()));
-			updateContent("#recentSetDate", mostRecentSet.getDate().toDateString());
-			
+			if (typeof(mostRecentSet) !== "undefined"){
+				updateContent("#recentSetScore", mostRecentSet.getScore(h2h.getP1id()) + " - " + mostRecentSet.getScore(h2h.getP2id()));
+				updateContent("#recentSetDate", mostRecentSet.getDate().toDateString());
+			} else {
+				updateContent("#recentSetDate", "Haven't played this year");
+			}
 		} else {
-			//TODO: Do something here? this means lookup of players went wrong.
+			//TODO: Do something here? this means something went wrong (Very wrong).
 		}
 	} catch (err) {
-		//TODO: Put a logger here... (Cheating and using recent set for debugging)
-		updateContent("#recentSet", err);
+		debug(err);
 	}
 }
 	
@@ -110,11 +128,31 @@ async function readFromJson(){
 	let playerTwo = f.Player_Two;
 	return [playerOne, playerTwo]
 }
-	
+
+var isUpdating = false;
+var p1 = "";
+var p2 = "";
+
+async function checkForUpdates() {
+	if (!isUpdating) {
+		let players = await readFromJson();
+		if (p1 != players[0] || p2 != players[1]) {
+			isUpdating = true;
+			clearContents();
+			p1 = players[0];
+			p2 = players[1];
+
+			await run(p1, p2);
+
+			isUpdating = false;
+		}
+	}
+}
 
 //Build the Displayed scene
 
-run();
+//Start overlay layout update loop
+setInterval (function() { checkForUpdates(); }, 1000);
 </script>
 
 </body>
