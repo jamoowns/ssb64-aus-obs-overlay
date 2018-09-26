@@ -211,7 +211,13 @@ class HeadToHeadDetails {
    * @returns {Set} the most recent set
    */
   getMostRecentSet() {
-    if (this.recentWins[0].getDate() > this.recentWins[1].getDate()) {
+    if (typeof(this.recentWins[0]) === "undefined" && typeof(this.recentWins[1]) === "undefined") {
+      return;
+    } else if (typeof(this.recentWins[0]) !== "undefined" && typeof(this.recentWins[1]) === "undefined") {
+      return this.recentWins[0];
+    } else if (typeof(this.recentWins[0]) === "undefined" && typeof(this.recentWins[1]) !== "undefined") {
+      return this.recentWins[1];
+    }else if (this.recentWins[0].getDate() > this.recentWins[1].getDate()) {
       return this.recentWins[0];
     } else {
       return this.recentWins[1];
@@ -245,13 +251,15 @@ async function getPlayerIdFromTagInGroup(phase_group, gamerTag) {
     let f = await response.json();
 
     var players = f.entities.player;
-    for (var i = 0; i < players.length; i++) {
-        var player = players[i];
-        if (player.gamerTag == gamerTag) {
-            // Cache the playerId for future use.
-            playerIdCache[gamerTag] = player.id;
-            return player.id;
-        }
+    if (typeof(players) !== "undefined"){
+      for (var i = 0; i < players.length; i++) {
+          var player = players[i];
+          if (player.gamerTag == gamerTag) {
+              // Cache the playerId for future use.
+              playerIdCache[gamerTag] = player.id;
+              return player.id;
+          }
+      }
     }
 
     return -1;
@@ -568,6 +576,7 @@ async function getPlayerIdFromTagInTournament(tournamentSlug, gamerTag){
     playerId = -1;
 
     let events = f.entities.event.filter(event => event.videogameId == SSB64_GAME_ID);
+    
     for (var i = 0; i < events.length; i++) {
       let event = events[i];
 
@@ -576,9 +585,9 @@ async function getPlayerIdFromTagInTournament(tournamentSlug, gamerTag){
         let phase = phases[j];
 
         let groups = f.entities.groups.filter(group => group.phaseId == phase.id);
-
         for (var k = 0; k < groups.length; k++) {
           playerId = await getPlayerIdFromTagInGroup(groups[k].id, gamerTag);
+          
           if (playerId != -1) {
             return playerId;
           }
